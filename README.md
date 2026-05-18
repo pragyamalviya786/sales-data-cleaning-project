@@ -48,6 +48,10 @@ The objective is to convert messy, inconsistent data into a structured and analy
 ## 📁 Output File
 - `sales_clean.csv` → Final cleaned and structured dataset
 
+## 📸 Project Output Preview
+
+![Sales Cleaning Output](sales.png)
+
 ---
 
 ## 🎯 Key Outcome
