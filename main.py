@@ -24,24 +24,27 @@ clean_df.columns = (
 )
 
 # clean sales column
-clean_df["sales"] = (
-    clean_df["sales"]
-    .astype(str)
-    .str.replace(" sales", "", regex=False)
-    .str.strip()
-)
+if "sales" in clean_df.columns:
+    clean_df["sales"] = (
+        clean_df["sales"]
+        .astype(str)
+        .str.replace(" sales", "", regex=False)
+        .str.strip()
+    )
 
 # numeric conversion
 numeric_cols = ["sales", "revenue", "stock", "price"]
 
 for col in numeric_cols:
-    clean_df[col] = pd.to_numeric(clean_df[col], errors="coerce")
+    if col in clean_df.columns:
+        clean_df[col] = pd.to_numeric(clean_df[col], errors="coerce")
 
 # date conversion
-clean_df["order_date"] = pd.to_datetime(
-    clean_df["order_date"],
-    errors="coerce"
-)
+if "order_date" in clean_df.columns:
+    clean_df["order_date"] = pd.to_datetime(
+        clean_df["order_date"],
+        errors="coerce"
+    )
 
 # remove duplicates
 clean_df = clean_df.drop_duplicates()
@@ -56,18 +59,20 @@ clean_df = clean_df.drop(
         "promo_bin_2",
         "promo_type_2",
         "column3",
-        "promo_discount2"
+        "promo_discount2",
     ],
-    errors="ignore"
+    errors="ignore",
 )
 
 # rename columns
-clean_df = clean_df.rename(columns={
-    "order_id_(unique)": "order_id",
-    "order_date_2": "order_date_alt",
-    "delivery_date_format1": "delivery_date_1",
-    "delivery_date_format2": "delivery_date_2",
-})
+clean_df = clean_df.rename(
+    columns={
+        "order_id_(unique)": "order_id",
+        "order_date_2": "order_date_alt",
+        "delivery_date_format1": "delivery_date_1",
+        "delivery_date_format2": "delivery_date_2",
+    }
+)
 
 # check info
 print(clean_df.info())
